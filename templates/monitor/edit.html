@@ -1,0 +1,91 @@
+{% extends "layouts/base.html" %}
+
+{% block head %}
+<link href="/static/vendors/datepicker/css/datepicker.css" rel="stylesheet" />
+{% endblock %}
+
+{% block subtitle %}{% if monitor %}编辑{% else %}添加{% endif %}跟踪条件{% endblock %}
+
+{% block body %}
+{% block content %}
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+                        <ul class="breadcrumb">
+                            <li class="active">
+                            <a href="/monitor/">监控信息</a><span class="divider">/<a href="/monitor/edit/">添加跟踪条件</a></span>
+                            </li>
+                        </ul>
+			<div class="widget">
+				<div class="widget-title">
+                    <h3>{% if monitor  %}编辑{% else %}创建{% endif %}查询条件</h3>
+				</div>
+				<div class="widget-body">
+				<form id="edit_form" action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                        <legend>跟踪条件信息</legend>
+                        <div class="control-group">
+                            <label class="control-label" for="id_product" >广告类别:</label>
+                            <div class="controls">
+                                <select style="width:80px" id="id_product" name="product">
+                                    <option value=2>插屏</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="id_aid" >AID:</label>
+			    <div class="controls">
+                                <input id="id_aid" name="aid" type="text" style="width:280px;" {% if aid %} value={{aid}} {% endif %}/>
+                            </div>
+			</div>
+                        <div class="control-group">
+                            <label class="control-label" for="id_ei" >IMEI:</label>
+			    <div class="controls">
+                                <input id="id_ei" name="ei" type="text" style="width:280px;" {% if ei %} value={{ei}} {% endif %}/>
+                            </div>
+			</div>
+                        <div class="control-group">
+                            <label class="control-label" for="id_ifa" >IDFA:</label>
+		            <div class="controls">
+                                    <input id="id_ifa" name="ifa" type="text" style="width:280px;" {% if ifa %} value={{ifa}} {% endif %}/>
+                                <br> (eg:248F7DF1-353F-4DEA-9C5B-F6389B1DD4DC)
+                            </div>
+			</div>
+                    	<div class="form-actions">
+			    <button id="submit_btn" type="submit" class="btn btn-primary">
+				确定
+  			    </button>
+		        </div>
+		    </form>
+		    <legend>历史跟踪条件信息</legend>
+                    <table class="table table-striped table-bordered table-advance table-hover">
+                            <thead>
+                                    <tr>
+                                            <th>product</th>
+                                            <th>params</th>
+                                            <th>time</th>
+                                    </tr>
+                            </thead>
+                            <tbody>
+                            {% if monitors and count > 0 %}
+                                {%for item in monitors %}
+                                <tr>
+                                    <td>{{ item.product }}</td>
+                                    <td>{{ item.params }}</td>
+                                    <td>{{ item.create_at|date:'Y-m-d H:i:s' }}</td>
+                                </tr>
+                                {%endfor %}
+                            {%endif%}
+                            </tbody>
+                    </table>
+	          </div>
+                 </div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% endblock %}
+
+{% block foot %}
+<script src="/static/vendors/datepicker/js/bootstrap-datepicker.js"></script>
+<script src="/static/vendors/datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+{% endblock %}

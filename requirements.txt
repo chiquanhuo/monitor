@@ -1,0 +1,9 @@
+django 1.7
+django-simple-captcha
+pymongo
+MySQL-python
+
+CREATE EVENT del_captcha 
+ON SCHEDULE EVERY1 DAY 
+STARTS '2016-3-08 00:00:00'
+DO TRUNCATE TABLE youmi_monitor.captcha_captchastore;
